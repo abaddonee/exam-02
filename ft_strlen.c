@@ -3,36 +3,46 @@
 
 int main(int argc, char **argv)
 {
-    if(argc == 2)
+    if (argc > 1) // plus que 1 argument
     {
-        int i = 0; // index 
-        int end = 0; // fin de mot
-        int start = 0; // debut de mot
-       
-        while(argv[1][i] != '\0') // on va a la fin de la chaine
-            i++;
-        while(i >= 0) // on parcours la chaine de la fin vers le debut
+        char *str = argv[1]; 
+        int i = 0; // index
+        int start ; // debut du mot
+        int end ; // fin du mot
+
+        //longeure de la chaine
+        while (str[i] != '\0')
         {
-           
-            
-            while(argv[1][i] == '\t' || argv[1][i] == ' ' || argv[1][i] == '\0')
-            {
-                i--; // on recule jusqu'a trouver un caractere
-            }
-            end = i; // on sauvegarde la fin du mot
-            while(argv[1][i] != '\t' && argv[1][i] != ' ' && argv[1][i] != '\0')
-                i--; // on recule jusqu'a trouver un espace ou un tabulation
-            start = i + 1;// on sauvegarde le debut du mot
-            
-            while(start <= end)
-            {
-                write(1, &argv[1][start], 1);// on affiche le mot
-                start++;
-            }
-            if(i > 0) // si on est pas a la fin de la chaine on affiche un espace
-                write(1, " ", 1);
+            i++;
         }
-            
+
+        // On commence à la fin de la chaine
+        while (i > 0)
+        {
+            // on enleve les espaces et tabulations
+            while (i > 0 && (str[i - 1] == ' ' || str[i - 1] == '\t'))
+            {
+                i--;
+            }
+
+            // fin du mot
+            end = i;
+
+            // on enleve les lettres
+            while (i > 0 && str[i - 1] != ' ' && str[i - 1] != '\t')
+            {
+                i--;
+            }
+            start = i; // debut du mot
+
+            // On affiche le mot
+            if (start != end)
+            {
+                write(1, &str[start], end - start); // Affiche le mot
+                if (i > 0) // Si il reste des mots
+                    write(1, " ", 1); // On affiche un espace
+            }
+        }
     }
     write(1, "\n", 1);
     return 0;
