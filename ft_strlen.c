@@ -1,26 +1,22 @@
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-int main (int argc, char **argv)
+typedef struct    s_list
 {
-    if(argc == 2)
+    struct s_list *next;
+    void          *data;
+}                t_list;
+
+int	ft_list_size(t_list *begin_list) 
+{
+    int i = 0; // nombre d'éléments
+    while (begin_list) // tant que le pointeur n'est pas NULL
     {
-        int i = 0;
-        while(argv[1][i] != '\0') // temps que argv[1] n'est pas fini
-        {
-            while(argv[1][i] != '\0' && (argv[1][i] == ' ' || argv[1][i] == '\t'))
-            {
-                i++; // on passe les espaces et les tabulations
-            }
-            while(argv[1][i] != '\0' && argv[1][i] != ' ' && argv[1][i] != '\t')
-            {
-                write(1, &argv[1][i], 1); // on affiche les mots
-                i++;
-            }
-            write(1, " ", 1); // on affiche un espace
-        }
-        
+        begin_list = begin_list->next; // on avance dans la liste
+        i++; // on incrémente le compteur
     }
-    write(1, "\n", 1);
-    return (0);
+    return (i); // on retourne le nombre d'éléments
 }
+
+
