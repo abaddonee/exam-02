@@ -1,21 +1,34 @@
 #include <unistd.h>
 #include <stdio.h>
 
-void sort_int_tab(int *tab, unsigned int size)
+typedef struct s_list
 {
-    unsigned int i;
-    int temp; // variable temporaire
+    int data; // valeur de l'element
+    struct s_list *next; // pointeur sur l'element suivant
+} t_list;
 
-    while(i < (size - 1)) // -1 car on compare tab[i] et tab[i + 1]
-    {                     // pour éviter de déborder du tableau
-        if(tab[i] > tab[i + 1]) // on echange les valeurs 
+
+t_list	*sort_list(t_list* lst, int (*cmp)(int, int))
+{ 
+    int temp; // variable temporaire pour stocker la valeur de lst->data
+    t_list *debut  = lst; // pointeur sur le debut de la liste
+    
+    
+    while (lst->next != NULL && lst != NULL) 
+    {
+        if(cmp(lst->data, lst->next->data) == 0) // si la fonction cmp retourne 0
         {
-            temp = tab[i];
-            tab[i] = tab[i + 1];
-            tab[i + 1] = temp;
-            i = 0; // on recommence la boucle pour vérifier si le tableau est trié
+            // on echange les valeurs de lst->data et lst->next->data
+            temp = lst->data; 
+            lst->data = lst->next->data;  
+            lst->next->data = temp; 
+            lst = debut; // on reinitialise lst au debut de la liste
         }
-        else 
-            i++; // si le tableau est trié on passe à l'élément suivant
+        else
+            lst = lst->next; // on passe a l'element suivant
     }
+    return (debut); // on retourne le debut de la liste
 }
+
+
+
