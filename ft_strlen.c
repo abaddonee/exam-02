@@ -2,62 +2,40 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int *ft_range(int start, int end)
+int *ft_rrange(int start, int end)
 {
 	int i = 0;
-	int len = abs((end - start)) + 1; // abs elle retourne la valeur absolue d'un nombre (en positif)
-                                // + 1 pour inclure le dernier nombre
+    int startbis = end;
+    int endbis = start;
+	int len = abs((endbis - startbis)) + 1; 
 	int *result = (int *)malloc(sizeof(int) * len);
 	
-	while (i < len) // tant que i est inférieur à la longueur
+	while (i < len) 
 	{
-		if (start < end) // si le début est inférieur à la fin
-		{
-			result[i] = start; // on stocke le début dans le tableau
-			start++; // on incrémente le début
-			i++; // on incrémente i
-		}
-		else // sinon
-		{
-			result[i] = start; // on stocke le début dans le tableau
-			start--; // on décrémente le début
-			i++; // on incrémente i
-		}
+		if (startbis < endbis) 
+        {
+            result[i] = startbis; 
+            startbis++; 
+            i++; 
+        }
+        else 
+        {
+            result[i] = startbis; 
+            startbis--; 
+            i++; 
+        }
+		
 	}
         return (result);
 }
 
-int *ft_range(int start, int end)
-{
-	int i = 0;
-    
-	int len = abs((end - start)) + 1; // abs elle retourne la valeur absolue d'un nombre (en positif)
-                                // + 1 pour inclure le dernier nombre
-	int *result = (int *)malloc(sizeof(int) * len);
-	
-	while (i < len) // tant que i est inférieur à la longueur
-	{
-		if (start < end) // si le début est inférieur à la fin
-		{
-			result[i] = start; // on stocke le début dans le tableau
-			start++; // on incrémente le début
-			i++; // on incrémente i
-		}
-		else // sinon
-		{
-			result[i] = start; // on stocke le début dans le tableau
-			start--; // on décrémente le début
-			i++; // on incrémente i
-		}
-	}
-        return (result);
-}
+
 
 
 int main()
 {
   
-    int *result = ft_range(6, 3);
+    int *result = ft_rrange(1, 3);
     
     int i = 0;
     
