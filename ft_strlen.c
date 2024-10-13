@@ -2,21 +2,58 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct    s_list
+char to_lower(char c) 
 {
-    struct s_list *next;
-    void          *data;
-}                t_list;
-
-int	ft_list_size(t_list *begin_list) 
-{
-    int i = 0; // nombre d'éléments
-    while (begin_list) // tant que le pointeur n'est pas NULL
+    if (c >= 'A' && c <= 'Z')
     {
-        begin_list = begin_list->next; // on avance dans la liste
-        i++; // on incrémente le compteur
+        c += 32;
     }
-    return (i); // on retourne le nombre d'éléments
+    return c;
 }
+
+
+
+
+int ft_atoi_base(const char *str, int str_base)
+{
+	int result = 0;
+	int sign = 1;
+	int i = 0;
+
+	if (str == NULL || str_base < 2 || str_base > 16) //base 2 a 16
+		return 0;
+
+	if (str[i] == '-') // verifications de signe
+	{
+		sign = -1;
+		i++;
+	}
+
+	while (str[i]) // boucle pour parcourir la chaine
+	{
+		if (str[i] >= '0' && str[i] <= '9') // si c'est un chiffre
+            result = result * str_base + str[i] - '0'; // on multiplie le resultat par la base et on ajoute le chiffre
+        else if (to_lower(str[i]) >= 'a' && to_lower(str[i]) <= 'f') // si c'est une lettre
+            result = result * str_base + to_lower(str[i]) - 'a' + 10;   // on multiplie le resultat par la base et on ajoute la lettre
+        else // si c'est un caractere non valide
+            break; // on sort de la boucle
+        i++; // on incremente i
+	}
+	return (result * sign); // on retourne le resultat avec le signe
+}
+
+
+
+int main(void)
+{
+    const char *str = "-C";
+    int str_base = 16;
+    int result = ft_atoi_base(str, str_base);
+    
+    printf("Result: %d\n", result);
+    
+    return 0;
+}
+
 
 
