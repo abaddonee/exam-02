@@ -2,41 +2,38 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
-
-void ft_print_hex(int n) // pareil que ft_putnbr mais en hexa
+void rstr(char *str)
 {
-    char *base = "0123456789abcdef";
-    if(n >= 16)
+    int i = 0;
+    while(str[i]) 
     {
-        ft_print_hex(n / 16);
-        ft_print_hex(n % 16);
+        if(str[i] >= 'A' && str[i] <= 'Z') //si c'est une majuscule
+            str[i] = str[i] + 32; //on la transforme en minuscule
+        if((str[i] >= 'a' && str[i] <= 'z') && (str[i + 1] == ' ' || str[i + 1] == '\0' || str[i + 1] == '\t'))
+            str[i] = str[i] - 32; //si c'est une minuscule et que le caractère suivant est un espace, on la transforme en majuscule
+        write(1, &str[i], 1); //on affiche le caractère
+        i++; 
+    }
+
+}
+
+int main(int argc, char **argv)
+{
+    int i = 0;
+    if(argc == 1)
+    {
+        write(1, "\n", 1);
     }
     else
     {
-        write(1, &base[n], 1);
+        i =1; //on commence à 1 car le premier argument est le nom du programme
+        while(i < argc) //on parcourt les arguments
+        {
+            rstr(argv[i]); //on appelle la fonction rstr
+            write(1, "\n", 1);
+            i++;
+        }
     }
-}
-
-int  ft_atoi(char *str) 
-{
-   
-    int result = 0;
-    while(*str)
-    {
-        result = result * 10 + *str - '0';
-        str++;
-    }
-    return result;
-}
-
-int main(int ac, char **av)
-{
-    if(ac == 2)
-    {
-        int nbr = ft_atoi(av[1]); // convertir la chaine de caractère en int
-        ft_print_hex(nbr); // afficher le nombre en hexa
-    }
-    write(1, "\n", 1);
     return 0;
+    
 }
