@@ -2,38 +2,52 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void rstr(char *str)
-{
-    int i = 0;
-    while(str[i]) 
-    {
-        if(str[i] >= 'A' && str[i] <= 'Z') //si c'est une majuscule
-            str[i] = str[i] + 32; //on la transforme en minuscule
-        if((str[i] >= 'a' && str[i] <= 'z') && (str[i + 1] == ' ' || str[i + 1] == '\0' || str[i + 1] == '\t'))
-            str[i] = str[i] - 32; //si c'est une minuscule et que le caractère suivant est un espace,
-                                    // on la transforme en majuscule
-        write(1, &str[i], 1); //on affiche le caractère
-        i++; 
-    }
 
-}
-
-int main(int argc, char **argv)
+void ft_write_nb(int nb)
 {
-    int i = 0;
-    if(argc == 1)
+    char base[] = "0123456789";
+    if(nb >= 10)
     {
-        write(1, "\n", 1);
+        ft_write_nb(nb / 10);
+        ft_write_nb(nb % 10);
     }
     else
     {
-        i =1; //on commence à 1 car le premier argument est le nom du programme
-        while(i < argc) //on parcourt les arguments
+        write(1, &base[nb], 1);
+    }
+}
+
+int ft_atoi(char *str)
+{
+    int resuly = 0;
+    while(*str)
+    {
+        resuly = resuly * 10 + *str - '0';
+        str++;
+    }
+    return resuly;
+}
+
+int main(int ac, char **av)
+{
+    if(ac == 2)
+    {
+        int i = 1;
+        int nbr = ft_atoi(av[1]); 
+        while(i <= 9)
         {
-            rstr(argv[i]); //on appelle la fonction rstr
+            ft_write_nb(i);
+            write(1, " x ", 3);
+            ft_write_nb(nbr);
+            write(1, " = ", 3);
+            ft_write_nb(i * nbr);
             write(1, "\n", 1);
             i++;
         }
+    }
+    else
+    {
+        write(1, "\n", 1);
     }
     return 0;
     
