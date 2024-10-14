@@ -2,28 +2,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-unsigned int    lcm(unsigned int a, unsigned int b)
+
+
+void ft_write_nbr(int nb)
 {
-    unsigned int nbr;
-    if (a == 0 || b == 0) // si a ou b est égal à 0, on retourne 0
-        return (0);
-    if(a > b) // on prend le plus grand nombre
-        nbr = a;
-    else 
-        nbr = b;
-    while(1) // on boucle jusqu'à trouver le plus petit multiple commun
-    { // sa sera le plus petit car le if affiche le premier trouvé
-        if (nbr % a == 0 && nbr % b == 0) // si nbr est un multiple de a et b, on retourne nbr
-            return (nbr);
-        nbr++; // on incrémente nbr
+    char base[10] = "0123456789"; 
+    if(nb >= 10)
+    {
+        ft_write_nbr(nb / 10);
+        ft_write_nbr(nb % 10);
     }
+    else
+        write(1, &base[nb], 1);
+    
 }
 
-int main(int ac, char **av)
+int main(int argc, char **argv)
 {
-    int a = 4;
-    int b = 6;
-    printf("%d", lcm(a, b));
-    write(1, "\n", 1);
-    return (0);
+    int i = 0; // conteurs des arguments
+    while(argc) // tant qu'il y a des arguments
+    {
+        i++; // on incrémente le conteur
+        argc--; // on décrémente le nombre d'arguments
+    }
+    ft_write_nbr(i - 1); // on affiche le nombre d'arguments(sans compter le nom du programme)
+    write(1, "\n", 1); // on affiche un retour à la ligne
+    return 0;
 }
