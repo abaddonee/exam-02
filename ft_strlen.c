@@ -10,7 +10,8 @@ void rstr(char *str)
         if(str[i] >= 'A' && str[i] <= 'Z') //si c'est une majuscule
             str[i] = str[i] + 32; //on la transforme en minuscule
         if((str[i] >= 'a' && str[i] <= 'z') && (str[i + 1] == ' ' || str[i + 1] == '\0' || str[i + 1] == '\t'))
-            str[i] = str[i] - 32; //si c'est une minuscule et que le caractère suivant est un espace, on la transforme en majuscule
+            str[i] = str[i] - 32; //si c'est une minuscule et que le caractère suivant est un espace,
+                                    // on la transforme en majuscule
         write(1, &str[i], 1); //on affiche le caractère
         i++; 
     }
