@@ -4,33 +4,39 @@
 
 
 
-int main (int argc, char **argv)
+void ft_print_hex(int n) // pareil que ft_putnbr mais en hexa
 {
-    if (argc == 3)
+    char *base = "0123456789abcdef";
+    if(n >= 16)
     {
-        int nbr1 = atoi(argv[1]); 
-        int nbr2 = atoi(argv[2]);
-        if(nbr1 == 0 || nbr2 == 0)
-        {
-            printf("\n"); // si un des deux nombre est égale à 0, on ne peut pas faire de pgcd
-            return 0;
-        }
-        while(nbr1 != nbr2) // tant que les deux nombres sont différents
-        {
-            if(nbr1 > nbr2) // on soustrait le plus grand au plus petit
-            {
-                nbr1 -= nbr2; // on soustrait parce que le pgcd est le reste de la division euclidienne
-            }
-            else 
-            {
-                nbr2 -= nbr1;
-            }
-        }
-        printf("%d", nbr1); // on affiche le pgcd car les deux nombres sont égaux
-        
+        ft_print_hex(n / 16);
+        ft_print_hex(n % 16);
     }
-    printf("\n");
+    else
+    {
+        write(1, &base[n], 1);
+    }
+}
+
+int  ft_atoi(char *str) 
+{
+   
+    int result = 0;
+    while(*str)
+    {
+        result = result * 10 + *str - '0';
+        str++;
+    }
+    return result;
+}
+
+int main(int ac, char **av)
+{
+    if(ac == 2)
+    {
+        int nbr = ft_atoi(av[1]); // convertir la chaine de caractère en int
+        ft_print_hex(nbr); // afficher le nombre en hexa
+    }
+    write(1, "\n", 1);
     return 0;
-
-
 }
