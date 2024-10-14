@@ -4,28 +4,33 @@
 
 
 
-void ft_write_nbr(int nb)
+int main (int argc, char **argv)
 {
-    char base[10] = "0123456789"; 
-    if(nb >= 10)
+    if (argc == 3)
     {
-        ft_write_nbr(nb / 10);
-        ft_write_nbr(nb % 10);
+        int nbr1 = atoi(argv[1]);
+        int nbr2 = atoi(argv[2]);
+        if(nbr1 == 0 || nbr2 == 0)
+        {
+            printf("\n");
+            return 0;
+        }
+        while(nbr1 != nbr2)
+        {
+            if(nbr1 > nbr2)
+            {
+                nbr1 -= nbr2;
+            }
+            else
+            {
+                nbr2 -= nbr1;
+            }
+        }
+        printf("%d", nbr1);
+        
     }
-    else
-        write(1, &base[nb], 1);
-    
-}
-
-int main(int argc, char **argv)
-{
-    int i = 0; // conteurs des arguments
-    while(argc) // tant qu'il y a des arguments
-    {
-        i++; // on incrémente le conteur
-        argc--; // on décrémente le nombre d'arguments
-    }
-    ft_write_nbr(i - 1); // on affiche le nombre d'arguments(sans compter le nom du programme)
-    write(1, "\n", 1); // on affiche un retour à la ligne
+    printf("\n");
     return 0;
+
+
 }
