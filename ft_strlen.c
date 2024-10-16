@@ -3,37 +3,34 @@
 #include <stdlib.h>
 #include <string.h>
 
-char	*ft_strchr(const char *s, int c)
+char *ft_strpbrk(const char *s1, const char *s2)
 {
-	while (*s != '\0')
+	int i = 0;
+	
+	if (!s1 || !s2)
+		return (0);
+	while(*s1) // chaine a parcourir 
 	{
-		if (*s == c)
-			return ((char *)s);
-		++s;
+		i = 0;
+	   	while(s2[i]) // chaine a chercher
+		{
+			if(*s1 == s2[i]) // si on trouve un caractere de s2 dans s1
+				return (char *) s1; // on retourne l'adresse de ce caractere
+			i++; // on incremente i pour passer au caractere suivant de s2
+		}
+		s1++; // on incremente s1 pour passer au caractere suivant	
 	}
-	return (0);
+	return (NULL); // si on a rien trouve on retourne NULL
 }
 
-size_t	ft_strspn(const char *s, const char *accept)
-{
-	size_t i = 0;
-
-	while (s[i] != '\0')
-	{
-		if (ft_strchr(accept, s[i]) == 0) // si le caractère n'est pas trouvé dans accept
-			break;
-		++i;
-	}
-	return (i);
-}
 
 
  int main()
  {
     char *s = "Hello World";
     char *charset = "Hello";
-    printf("%ld\n", ft_strspn(s, charset));
-    printf("%ld\n", strspn(s, charset));
+    printf("%s\n", ft_strpbrk(s, charset));
+    printf("%s\n", strpbrk(s, charset));
     return 0;
  }
 
