@@ -1,34 +1,39 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s != '\0')
+	{
+		if (*s == c)
+			return ((char *)s);
+		++s;
+	}
+	return (0);
+}
 
+size_t	ft_strspn(const char *s, const char *accept)
+{
+	size_t i = 0;
 
- size_t strcspn(const char *s, const char *charset)
- {
-    size_t i = 0;
-    size_t j = 0;
-    if (s == NULL || charset == NULL) // si s ou charset est NULL
-        return 0;
-    while (s[i] != '\0') // tant que s[i] n'est pas égale à '\0'
-    {
-        j = 0; // on remet j à 0
-        while (charset[j] != '\0') // tant que charset[j] n'est pas égale à '\0'
-        {
-            if (s[i] == charset[j]) // si s[i] est égale à charset[j]
-                return i; // on retourne i qui est la position de la lettre dans s
-            j++; // on incrémente j pour passer à la prochaine lettre de charset
-        }
-        i++; // on incrémente i pour passer à la prochaine lettre de s
-    }
-    return i;
- }
+	while (s[i] != '\0')
+	{
+		if (ft_strchr(accept, s[i]) == 0) // si le caractère n'est pas trouvé dans accept
+			break;
+		++i;
+	}
+	return (i);
+}
+
 
  int main()
  {
     char *s = "Hello World";
-    char *charset = "W";
-    printf("%ld\n", strcspn(s, charset));
+    char *charset = "Hello";
+    printf("%ld\n", ft_strspn(s, charset));
+    printf("%ld\n", strspn(s, charset));
     return 0;
  }
 
