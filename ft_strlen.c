@@ -4,34 +4,32 @@
 
 
 
-int main(int argc, char **argv)
-{
-    if (argc == 2)
+ size_t strcspn(const char *s, const char *charset)
+ {
+    size_t i = 0;
+    size_t j = 0;
+    if (s == NULL || charset == NULL) // si s ou charset est NULL
+        return 0;
+    while (s[i] != '\0') // tant que s[i] n'est pas égale à '\0'
     {
-        int i = 0;
-
-        // Parcourir jusqu'à la fin de la chaîne
-        while (argv[1][i] != '\0')
-            i++;
-
-        // Remonter pour ignorer les espaces à la fin (si présents)
-        while (i > 0 && (argv[1][i - 1] == ' ' || argv[1][i - 1] == '\t' || argv[1][i - 1] == '\n'))
-            i--;
-
-        // Trouver le début du dernier mot
-        int j = i;
-        while (j > 0 && argv[1][j - 1] != ' ' && argv[1][j - 1] != '\t' && argv[1][j - 1] != '\n')
-            j--;
-
-        // Afficher le dernier mot
-        while (j < i)
+        j = 0; // on remet j à 0
+        while (charset[j] != '\0') // tant que charset[j] n'est pas égale à '\0'
         {
-            write(1, &argv[1][j], 1);
-            j++;
+            if (s[i] == charset[j]) // si s[i] est égale à charset[j]
+                return i; // on retourne i qui est la position de la lettre dans s
+            j++; // on incrémente j pour passer à la prochaine lettre de charset
         }
+        i++; // on incrémente i pour passer à la prochaine lettre de s
     }
+    return i;
+ }
 
-    // Saut de ligne à la fin
-    write(1, "\n", 1);
+ int main()
+ {
+    char *s = "Hello World";
+    char *charset = "W";
+    printf("%ld\n", strcspn(s, charset));
     return 0;
-}
+ }
+
+
