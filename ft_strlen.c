@@ -3,35 +3,39 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *ft_strpbrk(const char *s1, const char *s2)
+
+
+
+
+int main(int argc, char **argv)
 {
-	int i = 0;
-	
-	if (!s1 || !s2)
-		return (0);
-	while(*s1) // chaine a parcourir 
-	{
-		i = 0;
-	   	while(s2[i]) // chaine a chercher
-		{
-			if(*s1 == s2[i]) // si on trouve un caractere de s2 dans s1
-				return (char *) s1; // on retourne l'adresse de ce caractere
-			i++; // on incremente i pour passer au caractere suivant de s2
-		}
-		s1++; // on incremente s1 pour passer au caractere suivant	
-	}
-	return (NULL); // si on a rien trouve on retourne NULL
-}
+    if (argc == 3)
+    {
+        int i = 0;  // Index pour argv[1] la chaine a trouver dans argv[2]
+        int j = 0;  // Index pour argv[2] 
 
-
-
- int main()
- {
-    char *s = "Hello World";
-    char *charset = "Hello";
-    printf("%s\n", ft_strpbrk(s, charset));
-    printf("%s\n", strpbrk(s, charset));
+        // Parcourir argv[2] pour chercher les caractères de argv[1] dans l'ordre
+        while (argv[2][j] != '\0')
+        {
+            if (argv[1][i] == argv[2][j])
+            {
+                i++;  // Avancer dans argv[1] si un caractère est trouvé
+            }
+            if (argv[1][i] == '\0')
+            {
+                // Si tous les caractères de argv[1] ont été trouvés dans argv[2]
+                write(1, argv[1], i);
+                write(1, "\n", 1);
+                return 0;
+            }
+            j++;  // Avancer dans argv[2]
+        }
+    }
+    // Si argv[1] n'est pas trouvé dans argv[2] ou si les arguments sont incorrects
+    write(1, "\n", 1);
     return 0;
- }
+}
+   
+ 
 
 
