@@ -3,45 +3,34 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-
-
-
-char *ft_strrev(char *str)
+// si un nombre peux etre diviser par 2 jusqua ce qu'il reste 1 alors il est une puissance de 2
+int power_of_2(int n)
 {
-    int i = 0;
-    int j = 0;
-    char temp;
-
-    // Trouver la longueur de la chaîne
-    while (str[i] != '\0')
-        i++;
-    
-    // Réduire i pour pointer sur le dernier caractère
-    i--;
-
-    // Inverser les caractères
-    while (j < i)
+    if(n == 0)
+        return 1;
+    while(n % 2 == 0) 
     {
-        // Échanger les caractères
-        temp = str[j];
-        str[j] = str[i];
-        str[i] = temp;
-
-        // Avancer j et reculer i
-        j++;
-        i--;
+        n = n / 2;
     }
-
-    return (str);
+    if(n == 1)
+        return 1;
+    else
+        return 0;
 }
-
 
 int main()
 {
-    char str[] = "Hello World!";
-    printf("%s\n", ft_strrev(str));
+    int n;
+    printf("Enter a number: ");
+    scanf("%d", &n);
+    if(power_of_2(n))
+        printf("Yes\n");
+    else
+        printf("No\n");
     return 0;
 }
-   
+
+
+
+
  
