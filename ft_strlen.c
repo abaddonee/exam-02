@@ -3,19 +3,21 @@
 #include <stdlib.h>
 #include <string.h>
 
-void print_bits(unsigned char octet)
+unsigned char reverse_bits(unsigned char octet)
 {
-    int i = 7;  // On commence par le bit de poids fort (le bit 7)
-    
-    while (i >= 0)  // On parcourt les bits de 7 à 0
+    unsigned char result;
+    unsigned char i;
+
+    i = 0;
+    result = 0;
+    while (i < 8) // 8 bits
     {
-        // On vérifie le i-ème bit en utilisant un masque
-        if (octet & (1 << i)) // Si le i-ème bit est à 1 le << décale le 1 de i bits vers la gauche
-            write(1, "1", 1);
-        else
-            write(1, "0", 1);
-        i--;  // On passe au bit suivant (de gauche à droite)
+        result = result << 1; //on décale le bit de 1 vers la gauche
+        result = result | (octet & 1); //on ajoute le bit de poids faible de octet
+        octet = octet >> 1; //on décale octet de 1 vers la droite
+        i++; //on incrémente i
     }
+    return (result); //on retourne le résultat
 }
 
 int main()
