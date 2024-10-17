@@ -3,32 +3,31 @@
 #include <stdlib.h>
 #include <string.h>
 
-// si un nombre peux etre diviser par 2 jusqua ce qu'il reste 1 alors il est une puissance de 2
-int power_of_2(int n)
+void print_bits(unsigned char octet)
 {
-    if(n == 0)
-        return 1;
-    while(n % 2 == 0) 
+    int i = 7;  // On commence par le bit de poids fort (le bit 7)
+    
+    while (i >= 0)  // On parcourt les bits de 7 à 0
     {
-        n = n / 2;
+        // On vérifie le i-ème bit en utilisant un masque
+        if (octet & (1 << i)) // Si le i-ème bit est à 1 le << décale le 1 de i bits vers la gauche
+            write(1, "1", 1);
+        else
+            write(1, "0", 1);
+        i--;  // On passe au bit suivant (de gauche à droite)
     }
-    if(n == 1)
-        return 1;
-    else
-        return 0;
 }
 
 int main()
 {
-    int n;
-    printf("Enter a number: ");
-    scanf("%d", &n);
-    if(power_of_2(n))
-        printf("Yes\n");
-    else
-        printf("No\n");
-    return 0;
+    unsigned char byte;
+
+    byte = 2;
+    print_bits(byte);
+    return (0);
 }
+
+
 
 
 
